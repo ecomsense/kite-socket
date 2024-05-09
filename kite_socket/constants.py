@@ -48,6 +48,8 @@ def win_yml_to_obj(arg=None):
             logging.warning(f"using default {file} file")
         elif not flag and arg is None:
             logging.error(f"fill the {file=} and try again")
+
+        return O_FUTL.get_lst_fm_yml(file)
     except Exception as e:
         logging.error(e)
         print_exc()
