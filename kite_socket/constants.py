@@ -63,3 +63,4 @@ def os_and_objects():
 
 
 O_CNFG, O_SETG = os_and_objects()
+print(O_CNFG, O_SETG)
