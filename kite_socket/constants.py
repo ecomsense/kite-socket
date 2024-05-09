@@ -1,3 +1,5 @@
+from traceback import print_exc
+
 try:
     from toolkit.logger import Logger
 except ModuleNotFoundError:
@@ -35,16 +37,20 @@ def yml_to_obj(arg=None):
 
 
 def win_yml_to_obj(arg=None):
-    if not arg:
-        file = "../../socket-kite.yml"
-    else:
-        file = S_DATA + arg
+    try:
+        if not arg:
+            file = "../../socket-kite.yml"
+        else:
+            file = S_DATA + arg
 
-    flag = O_FUTL.is_file_exists(file)
-    if not flag and arg:
-        logging.warning(f"using default {file} file")
-    elif not flag and arg is None:
-        logging.error(f"fill the {file=} and try again")
+        flag = O_FUTL.is_file_exists(file)
+        if not flag and arg:
+            logging.warning(f"using default {file} file")
+        elif not flag and arg is None:
+            logging.error(f"fill the {file=} and try again")
+    except Exception as e:
+        logging.error(e)
+        print_exc()
 
 
 def os_and_objects():
@@ -57,7 +63,8 @@ def os_and_objects():
             O_SETG = win_yml_to_obj("settings.yml")
     except Exception as e:
         logging.error(e)
-        __import__("sys").exit()
+        print_exc()
+        __import__("sys").exit(1)
     else:
         return O_CNFG, O_SETG
 
