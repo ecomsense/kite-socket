@@ -1,5 +1,5 @@
 BANKNIFTY:
   spot: "NSE:NIFTY BANK"
   future: "NFO:BANKNIFTY24MAYFUT"
-  expiry: "24508"
-  depth: 21
+  expiry: "24515"
+  depth: 19

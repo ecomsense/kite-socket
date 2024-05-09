@@ -26,13 +26,40 @@ def yml_to_obj(arg=None):
     flag = O_FUTL.is_file_exists(file)
 
     if not flag and arg:
-        logging.warning(f"using default {file} file")
+        logging.warning(f"using default {file=}")
     elif not flag and arg is None:
-        logging.error(f"fill the {file} file and try again")
+        logging.error(f"fill the {file=} file and try again")
         __import__("sys").exit()
 
     return O_FUTL.get_lst_fm_yml(file)
 
 
-O_CNFG = yml_to_obj()
-O_SETG = yml_to_obj("settings.yml")
+def win_yml_to_obj(arg=None):
+    if not arg:
+        file = "../../socket-kite.yml"
+    else:
+        file = S_DATA + arg
+
+    flag = O_FUTL.is_file_exists(file)
+    if not flag and arg:
+        logging.warning(f"using default {file} file")
+    elif not flag and arg is None:
+        logging.error(f"fill the {file=} and try again")
+
+
+def os_and_objects():
+    try:
+        if __import__("os").name != "nt":
+            O_CNFG = yml_to_obj()
+            O_SETG = yml_to_obj("settings.yml")
+        else:
+            O_CNFG = win_yml_to_obj()
+            O_SETG = win_yml_to_obj("settings.yml")
+    except Exception as e:
+        logging.error(e)
+        __import__("sys").exit()
+    else:
+        return O_CNFG, O_SETG
+
+
+O_CNFG, O_SETG = os_and_objects()
