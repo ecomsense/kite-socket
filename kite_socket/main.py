@@ -9,9 +9,7 @@ from typing import Dict, List
 def mk_lst_to_subscribe(O_SYM, O_API) -> List:
     try:
         k = "BANKNIFTY"
-        resp = O_API.ltp(O_SETG[k]["spot"])
-        ltp = resp[O_SETG[k]["spot"]]["last_price"]
-        logging.info(f"ltp {ltp}")
+        ltp = 48048
         atm = O_SYM.get_atm(diff[k], ltp=ltp)
         logging.info(f"atm {atm}")
 
@@ -32,6 +30,10 @@ def mk_lst_to_subscribe(O_SYM, O_API) -> List:
 
 def init():
     O_API = get_bypass(O_CNFG["bypass"], S_DATA)
+    # orders
+    print(O_API.orders)
+
+    # prepare for websocket
     O_SYM = Symbols(S_DATA + "instruments.csv")
     exchsym: List = mk_lst_to_subscribe(O_SYM, O_API)
     sym_tkn: Dict = O_SYM.get_tokens(exchsym)

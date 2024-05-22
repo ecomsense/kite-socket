@@ -62,6 +62,7 @@ class Symbols:
             lst_excsym = i.split(":")
             exch = lst_excsym[0]
             sym = lst_excsym[1]
+            print(lst_excsym)
             self.dct[i] = int(
                 df.loc[(df["exchange"] == exch) & (df["tradingsymbol"] == sym)][
                     "instrument_token"
